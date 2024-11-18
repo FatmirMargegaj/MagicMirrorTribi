@@ -12,7 +12,10 @@ const MM = (function () {
 		const domCreationPromises = [];
 
 		modules.forEach(function (module) {
-			if (typeof module.data.position !== "string") {
+			if (!module.data || typeof module.data.position !== "string")
+			{
+				console.log(`Modul ${module.name || "unbekannt"} hat ungültige oder fehlende Daten:`, module);
+				console.log(`Module at index ${modules.indexOf(module)} (${module.name || "unknown"}) has invalid or missing data:`, module);
 				return;
 			}
 
