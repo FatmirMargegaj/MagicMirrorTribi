@@ -5,7 +5,6 @@ Module.register("events2", {
 	},
 
 
-
 	// Start des Moduls
 	start: function () {
 		console.log("Modul " + this.name + " gestartet.");
@@ -15,7 +14,6 @@ Module.register("events2", {
 			this.getData();
 		}, this.config.updateInterval);
 	},
-
 
 
 	getData: function () {
@@ -91,9 +89,4 @@ Module.register("events2", {
 
 		return wrapper;
 	},
-
-
-	getStyles: function () {
-		return [this.file("events.css")];
-	}
 });
