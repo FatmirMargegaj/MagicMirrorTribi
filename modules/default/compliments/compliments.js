@@ -4,7 +4,7 @@ Module.register("compliments", {
 	// Module config defaults.
 	defaults: {
 		compliments: {
-			anytime: ["Willkommen im Treibhaus"],
+			anytime: ["Willkomm im Treibhaus"],
 			morning: ["Hast du mal lust vorbeizukommen"],
 			afternoon: ["Hello, beauty!", "You look sexy!", "Looking good today!"],
 			evening: ["Wow, you look hot!", "You look nice!", "Hi, sexy!"],
@@ -27,12 +27,12 @@ Module.register("compliments", {
 	date_regex: "[1-9.][0-9.][0-9.]{2}-([0][1-9]|[1][0-2])-([1-2][0-9]|[0][1-9]|[3][0-1])",
 	pre_defined_types: ["anytime", "morning", "afternoon", "evening"],
 	// Define required scripts.
-	getScripts () {
+	getScripts() {
 		return ["croner.js", "moment.js"];
 	},
 
 	// Define start sequence.
-	async start () {
+	async start() {
 		Log.info(`Starting module: ${this.name}`);
 
 		this.lastComplimentIndex = -1;
@@ -58,11 +58,11 @@ Module.register("compliments", {
 				this.updateDom(this.config.fadeSpeed);
 			}, this.config.updateInterval);
 		},
-		minute_sync_delay);
+			minute_sync_delay);
 	},
 
 	// check to see if this entry could be a cron entry wich contains spaces
-	isCronEntry (entry) {
+	isCronEntry(entry) {
 		return entry.includes(" ");
 	},
 
@@ -71,7 +71,7 @@ Module.register("compliments", {
 	 * @param {Date} [timestamp] The timestamp to check. Defaults to the current time.
 	 * @returns {number} The number of seconds until the next cron run.
 	 */
-	getSecondsUntilNextCronRun (cronExpression, timestamp = new Date()) {
+	getSecondsUntilNextCronRun(cronExpression, timestamp = new Date()) {
 		// Required for seconds precision
 		const adjustedTimestamp = new Date(timestamp.getTime() - 1000);
 
@@ -88,7 +88,7 @@ Module.register("compliments", {
 	 * @param {string[]} compliments Array with compliments.
 	 * @returns {number} a random index of given array
 	 */
-	randomIndex (compliments) {
+	randomIndex(compliments) {
 		if (compliments.length <= 1) {
 			return 0;
 		}
@@ -112,7 +112,7 @@ Module.register("compliments", {
 	 * Retrieve an array of compliments for the time of the day.
 	 * @returns {string[]} array with compliments for the time of the day.
 	 */
-	complimentArray () {
+	complimentArray() {
 		const now = moment();
 		const hour = now.hour();
 		const date = now.format("YYYY-MM-DD");
@@ -182,7 +182,7 @@ Module.register("compliments", {
 	 * Retrieve a file from the local filesystem
 	 * @returns {Promise} Resolved when the file is loaded
 	 */
-	async loadComplimentFile () {
+	async loadComplimentFile() {
 		const isRemote = this.config.remoteFile.indexOf("http://") === 0 || this.config.remoteFile.indexOf("https://") === 0,
 			url = isRemote ? this.config.remoteFile : this.file(this.config.remoteFile);
 		const response = await fetch(url);
@@ -193,7 +193,7 @@ Module.register("compliments", {
 	 * Retrieve a random compliment.
 	 * @returns {string} a compliment
 	 */
-	getRandomCompliment () {
+	getRandomCompliment() {
 		// get the current time of day compliments list
 		const compliments = this.complimentArray();
 		// variable for index to next message to display
@@ -212,7 +212,7 @@ Module.register("compliments", {
 	},
 
 	// Override dom generator.
-	getDom () {
+	getDom() {
 		const wrapper = document.createElement("div");
 		wrapper.className = this.config.classes ? this.config.classes : "thin xlarge bright pre-line";
 		// get the compliment text
@@ -240,7 +240,7 @@ Module.register("compliments", {
 	},
 
 	// Override notification handler.
-	notificationReceived (notification, payload, sender) {
+	notificationReceived(notification, payload, sender) {
 		if (notification === "CURRENTWEATHER_TYPE") {
 			this.currentWeatherType = payload.type;
 		}
