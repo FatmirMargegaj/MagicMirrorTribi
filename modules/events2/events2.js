@@ -30,7 +30,7 @@ Module.register("events2", {
 			.then((data) => {
 				console.log("Daten erfolgreich abgerufen:", data);
 
-				this.apiData = (data || []).slice(0, 5);
+				this.apiData = (data || []).slice(0, 4);
 				if (!this.hidden) {
 					this.updateDom();
 					console.log("DOM wurde updated")
